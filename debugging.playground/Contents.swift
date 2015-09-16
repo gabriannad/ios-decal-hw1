@@ -15,41 +15,43 @@ class Foo {
     var wordB : String!
     
     init (words: [String?]) {
-        wordA = words[0]?
-        wordB = words[1]?
+        wordA = words[0]
+        wordB = words[1]
     }
     
-//: [EXPLAIN YOUR ANSWER TO Q1 HERE]
+//: The variables wordA and wordB were already marked with the ! symbol, which allows their value to be either a String or nil. So if the length of the input array is less than 2 or if words[0] or words[2] is nil, wordA and wordB will still be able to take a nil value.
     
 
     
 //: ## Q2: Variable Types and Function Types
 //: Why does the compiler dislike the for loop? Also, what should we return?
     
-    func arePalindromes(words: [String]) -> Bool! {
+    class func arePalindromes(words: [String]) -> Bool! {
         let reversedWords = words.map() {String($0.characters.reverse())}
-        var numElements = words.count
+        let numElements = words.count
         
-        for let i = 0; i < numElements; i++ {
+        for var i = 0; i < numElements; i++ {
             if words[i] != reversedWords[i] {
                 return false
             }
         }
         
-        return nil
+        return true
     }
     
-//: [EXPLAIN YOUR ANSWER TO Q2 HERE]
+
+    
+//: A for loop needs a var to increment. A let is a constant. The function should either return true or false, or nil.
     
     
     
 //: ## Q3: More functions, and object initialization
 //: The method should be returning true or false -- what's wrong?
 //: Are we initializing the dictionary correctly?
-    func isAnagram(wordA: String, wordB: String) -> Bool? {
-        var countLetters : [Character : Int]
-        var lenA = wordA.characters.count
-        var lenB = wordB.characters.count
+    class func isAnagram(wordA: String, wordB: String) -> Bool? {
+        var countLetters = [Character : Int]()
+        let lenA = wordA.characters.count
+        let lenB = wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -75,18 +77,17 @@ class Foo {
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
         }
         
-        return nil
+        return true
     }
 }
 
-//: [EXPLAIN YOUR ANSWER TO Q3 HERE]
-
+//: True was never returned; instead, nil was returned even when all the conditions for being an anagram were passed.
 
 //: **Do not** change anything below.
 //: You should be able to call the methods as is.
